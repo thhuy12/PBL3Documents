@@ -1,0 +1,4 @@
+Note các link PBL3
+
+- HƯớng dẫn cài SUMO: https://github.com/manas11/vanet-sumo/blob/main/RUN.md
+- Link GitHub chính đang làm: https://github.com/Sharatn7/vanet_simulation
