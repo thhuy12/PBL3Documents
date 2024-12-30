@@ -1,103 +1,3 @@
-/* -*-  Mode: C++; c-file-style: "gnu"; indent-tabs-mode:nil; -*- */
-/*
- * Copyright (c) 2014 North Carolina State University
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation;
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * Author: Scott E. Carpenter <scarpen@ncsu.edu>
- *
- */
-
-/*
- * This example program allows one to run vehicular ad hoc
- * network (VANET) simulation scenarios in ns-3 to assess
- * performance by evaluating different 802.11p MAC/PHY
- * characteristics, propagation loss models (e.g. Friss,
- * Two-Ray Ground, or ITU R-P.1411), and application traffic
- * (e.g. Basic Safety Message) and/or routing traffic (e.g.
- * DSDV, AODV, OLSR, or DSR) under either a synthetic highway
- * scenario (i.e. a random waypoint mobility model) or by
- * playing back mobility trace files (i.e. ns-2 movement files).
- *
- * The script draws from several ns-3 examples, including:
- * /examples/routing/manet-routing-compare.cc
- * /src/propagation/model/itu-r-1411-los-propagation-loss-model.cc
- * /src/mobility/examples/ns2-mobility-trace.cc
- * /src/wave/examples/wave-simple-80211p.cc
- *
- * The script allows many parameters to be modified and
- * includes two predefined scenarios.  By default
- * scenario=1 runs for 10 simulated seconds with 40 nodes
- * (i.e. vehicles) moving according to RandomWaypointMobilityModel
- * with a speed of 20 m/s and no pause time within a 300x1500 m
- * region.  The WiFi is 802.11p with continuous access to a 10 MHz
- * Control Channel (CH) for all traffic.  All nodes transmit a
- * 200-byte safety message 10 times per second at 6 Mbps.
- * Additionally, all nodes (optionally) attempt to
- * continuously route 64-byte packets at an application
- * rate of 2.048 Kbps to one of 10 other nodes,
- * selected as sink nodes. The default routing protocol is AODV
- * and the Two-Ray Ground loss model is used.
- * The transmit power is set to 20 dBm and the transmission range
- * for safety message packet delivery is 145 m.
- *
- * Scenario 2 plays back vehicular trace files in
- * ns-2 movement format, and are taken from:
- * http://www.lst.inf.ethz.ch/research/ad-hoc/car-traces/
- * This scenario is 300 simulation seconds of 99
- * vehicles respectively within the Unterstrass
- * section of Zurich Switzerland that travel based on
- * models derived from real traffic data.  Note that these
- * scenarios can require a lot of clock time to complete.
- *
- * All parameters can be changed from their defaults (see
- * --help) and changing simulation parameters can have dramatic
- * impact on network performance.
- *
- * Several items can be output:
- * - a CSV file of data reception statistics, output once per
- *   second
- * - final statistics, in a CSV file
- * - dump of routing tables at 5 seconds into the simulation
- * - ASCII trace file
- * - PCAP trace files for each node
- *
- * Simulation scenarios can be defined and configuration
- * settings can be saved using config-store (raw text)
- * which can they be replayed again.  This is an easy way
- * to define and save the settings for a scenario, and then
- * re-execute the same scenario exactly, or to set up
- * several different simulation scenarios.
- * For example, to set up a scenario and save the configuration
- * as "scenario1.txt":
- *   ./waf --run "vanet-routing-compare --scenario=1 --saveconfig=scenario1.txt"
- * Then, to re-play the scenario using the save configuration
- * settings:
- *   ./waf --run "vanet-routing-compare --loadconfig=scenario1.txt"
- *
- * Class Diagram:
- *   main()
- *     +--uses-- VanetRoutingExperiment
- *                 +--is_a--- WifiApp
- *                 +--uses--- ConfigStoreHelper
- *                 +--has_a-- WaveBsmHelper
- *                 |            +--has_a-- WaveBsmStats
- *                 +--has_a-- RoutingHelper
- *                 |            +--has_a--RoutingStats
- *                 +--has_a-- WifiPhyStats
- *
- */
 
 #include <fstream>
 #include <iostream>
@@ -2372,8 +2272,8 @@ void VanetRoutingExperiment::SetupScenario()
   if (m_scenario == 1)
   {
     // 40 nodes in RWP 300 m x 1500 m synthetic highway, 10s
-    m_traceFile = "";
-    m_logFile = "";
+    m_traceFile = "/home/thanhhuy/Sumo/2024-12-23-09-30-22/mobility1.tcl";
+    m_logFile = "vanet1.log";
     m_mobility = 2;
     if (m_nNodes == 156)
     {
