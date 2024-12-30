@@ -1676,7 +1676,7 @@ void VanetRoutingExperiment::ProcessOutputs()
 void VanetRoutingExperiment::Run()
 {
   NS_LOG_INFO("Run Simulation.");
-  AnimationInterface anim("Vanetanim.xml");
+  AnimationInterface anim(m_protocolName + "result.xml");
 
   // Install FlowMonitor on all nodes
   FlowMonitorHelper flowmon;
